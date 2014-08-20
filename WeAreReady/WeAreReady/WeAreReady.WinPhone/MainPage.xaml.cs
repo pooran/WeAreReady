@@ -22,7 +22,8 @@ namespace WeAreReady.WinPhone
             Forms.Init();
             Content = WeAreReady.App.GetMainPage().ConvertPageToUIElement(this);
 
-            //Hello world from Tuan Tran and Nguyen Khuong
+            //Hello world from Tuan Tran and Nguyen Khuong and TK Nguyen
+
         }
     }
 }
