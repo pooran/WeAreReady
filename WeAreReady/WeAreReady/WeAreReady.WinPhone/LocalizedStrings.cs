@@ -3,7 +3,7 @@
 namespace WeAreReady.WinPhone
 {
     /// <summary>
-    /// Provides access to string resources.
+    /// Provides access to string resources. abc
     /// </summary>
     public class LocalizedStrings
     {
