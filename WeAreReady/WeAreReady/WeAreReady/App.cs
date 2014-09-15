@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using WeAreReady.Views;
 using Xamarin.Forms;
 
 namespace WeAreReady
@@ -11,15 +11,36 @@ namespace WeAreReady
     {
         public static Page GetMainPage()
         {
-            return new ContentPage
+
+            var scanPage = new ContentPage
             {
-                Content = new Label
+                Title = "Scan",
+                Content = new StackLayout
                 {
-                    Text = "Hello, Forms !",
-                    VerticalOptions = LayoutOptions.CenterAndExpand,
-                    HorizontalOptions = LayoutOptions.CenterAndExpand,
-                },
+                    Spacing = 20,
+                    Padding = 50,
+                    VerticalOptions = LayoutOptions.Center,
+                    Children = {
+            new Entry { Placeholder = "Username" },
+            new Entry { Placeholder = "Password", IsPassword = true },
+            new Button {
+                Text = "Login",
+                TextColor = Color.Black,
+                BackgroundColor = Color.FromHex("77D065") }}
+                }
             };
+
+            var messagePage = new ReportView
+            {
+                Title = "Message"
+            };
+
+            var homeView = new HomeView();
+            
+
+            var mainView = new TabbedPage {Children = {homeView, scanPage, messagePage}};
+            
+            return mainView;
         }
     }
 }
