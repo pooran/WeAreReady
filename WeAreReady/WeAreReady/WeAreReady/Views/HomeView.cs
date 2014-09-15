@@ -10,6 +10,8 @@ using Xamarin.Forms;
 
 namespace WeAreReady.Views
 {
+    //Hello world from Tuan Tran
+
     public class HomeView : BaseView
     {
         protected HomeViewModel ViewModel
