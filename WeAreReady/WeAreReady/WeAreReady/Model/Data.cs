@@ -26,7 +26,7 @@ namespace WeAreReady.Model
 
     public class Alert
     {
-        public enum Kind { Flood, Fire };
+        public enum Kind { Flood, Fire, Avalanche, Tsunami, Blizzard, Biological, Earthquake, Tornado, Thunder };
 
         public string Title { get; set; }
         public string Desc { get; set; }

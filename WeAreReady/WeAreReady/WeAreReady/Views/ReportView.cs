@@ -16,6 +16,7 @@ namespace WeAreReady.Views
         private Grid MainGrid;
         private string SelectedImage = "";
         Entry entry = new Entry();
+        Button submitButton = new Button();
 
         public ReportView()
         {
@@ -28,33 +29,6 @@ namespace WeAreReady.Views
             Content = MainGrid;
 
             BuildLayout();
-
-            //var layout = new WrapLayout
-            //{
-            //    HorizontalOptions = LayoutOptions.Center,
-            //    VerticalOptions = LayoutOptions.Start,
-            //    Spacing = 20,
-            //    Orientation = StackOrientation.Horizontal,
-            //};
-
-            //for (int i = 0; i < 8; i++)
-            //{
-            //    var imgStr = "disaster-0" + (i + 1);
-            //    var image = new Image
-            //    {
-            //        Source = Data.GetImageSource(imgStr),
-            //        Aspect = Aspect.AspectFit,
-            //        WidthRequest = 100,
-            //        HeightRequest = 100
-            //    };
-            //    var tapGesture = new TapGestureRecognizer { Command = new Command(AlertTap), CommandParameter = imgStr };
-            //    image.GestureRecognizers.Add(tapGesture);
-            //    layout.Children.Add(image);
-            //}
-
-            ////scroll.BackgroundColor = Color.Purple;
-            ////scroll.Content = layout;
-            //Content = layout;
         }
 
         private void BuildLayout()
@@ -67,16 +41,10 @@ namespace WeAreReady.Views
             row1.Height = new GridLength(1, GridUnitType.Star);
 
             RowDefinition row2 = new RowDefinition();
-            row2.Height = new GridLength(1, GridUnitType.Star);
+            row2.Height = GridLength.Auto;
 
             grid1.RowDefinitions.Add(row1);
             grid1.RowDefinitions.Add(row2);
-
-            //Label test = new Label();
-            //test.Text = "Hello world";
-            //test.TextColor = Color.White;
-            //grid1.Children.Add(test);
-            //Grid.SetRow(test, 1);
 
             var layout = new WrapLayout
             {
@@ -110,28 +78,38 @@ namespace WeAreReady.Views
 
             grid1.Children.Add(layout);
 
-            
 
-            StackLayout stack = new StackLayout();
-            stack.Orientation = StackOrientation.Horizontal;
-            stack.HorizontalOptions = LayoutOptions.Center;
 
-            
+            Grid grid2 = new Grid();
+            ColumnDefinition grid2Column0 = new ColumnDefinition()
+            {
+                Width = new GridLength(1, GridUnitType.Star),
+            };
+            ColumnDefinition grid2Column1 = new ColumnDefinition()
+            {
+                Width = GridLength.Auto,
+            };
+            grid2.HorizontalOptions = LayoutOptions.FillAndExpand;
+
+            grid2.Children.Add(entry);
             entry.HorizontalOptions = LayoutOptions.FillAndExpand;
-            stack.Children.Add(entry);            
+            
+            Grid.SetColumn(entry, 0);
 
-            Button submitButton = new Button();
+            
             submitButton.Text = "Submit";
+            submitButton.IsEnabled = false;
             var tapSubmit = new TapGestureRecognizer
             {
                 Command = new Command(SubmitTap),
                 CommandParameter = SelectedImage
             };
             submitButton.GestureRecognizers.Add(tapSubmit);
-            stack.Children.Add(submitButton);
+            grid2.Children.Add(submitButton);
+            Grid.SetColumn(submitButton, 1);
 
-            grid1.Children.Add(stack);
-            Grid.SetRow(stack, 1);
+            grid1.Children.Add(grid2);
+            Grid.SetRow(grid2, 1);
 
             MainGrid.Children.Add(grid1);
             
@@ -139,8 +117,51 @@ namespace WeAreReady.Views
 
         private async void SubmitTap(object submitTapString)
         {
+            Alert alert = new Alert();
             string textToSubmit = SelectedImage;
+            int disasterCase = Convert.ToInt32(textToSubmit.Split('-')[1]);
+            switch (disasterCase)
+            {
+                case 1:
+                    alert.AlertKind = Alert.Kind.Avalanche;
+                    break;
+                case 2:
+                    alert.AlertKind = Alert.Kind.Tornado;
+                    break;
+                case 3:
+                    alert.AlertKind = Alert.Kind.Fire;
+                    break;
+                case 4:
+                    alert.AlertKind = Alert.Kind.Blizzard;
+                    break;
+                case 5:
+                    alert.AlertKind = Alert.Kind.Flood;
+                    break;
+                case 6:
+                    alert.AlertKind = Alert.Kind.Thunder;
+                    break;
+                case 7:
+                    alert.AlertKind = Alert.Kind.Flood;
+                    break;
+                case 8:
+                    alert.AlertKind = Alert.Kind.Fire;
+                    break;
+                case 9:
+                    alert.AlertKind = Alert.Kind.Earthquake;
+                    break;
+                default:
+                    alert.AlertKind = Alert.Kind.Thunder;
+                    break;
+            }
+
+            
             string description = entry.Text;
+
+            alert.Desc = description;
+            alert.Title = alert.AlertKind.ToString();
+            alert.When = 0;
+
+            App.homeViewModel.Alerts.Add(alert);
 
             //TODO: Submit Alert
             //await StaticMethod.GetHttpAsStringAsync(API);
@@ -154,6 +175,7 @@ namespace WeAreReady.Views
             if(imageWithInfo.Image != null)
             {
                 imageWithInfo.Image.BackgroundColor = Color.Gray;
+                submitButton.IsEnabled = true;
             }
 
             SelectedImage = imageWithInfo.Info as string;

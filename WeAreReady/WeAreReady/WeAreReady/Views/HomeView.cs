@@ -14,18 +14,18 @@ namespace WeAreReady.Views
 
     public class HomeView : BaseView
     {
-        protected HomeViewModel ViewModel
-        {
-            get
-            {
-                return BindingContext as HomeViewModel;
-            }
-        }
+        //protected HomeViewModel ViewModel
+        //{
+        //    get
+        //    {
+        //        return BindingContext as HomeViewModel;
+        //    }
+        //}
         public HomeView()
         {
             
             Title = "Home";
-            BindingContext = new HomeViewModel();
+            BindingContext = App.homeViewModel;
 
             var listView = new ListView(); 
             listView.ItemTemplate = new DataTemplate(typeof(TextCell));
@@ -67,7 +67,7 @@ namespace WeAreReady.Views
                     }
                 };
             });
-            listView.ItemsSource = ViewModel.Alerts;
+            listView.ItemsSource = App.homeViewModel.Alerts;
 
             var te = Device.OnPlatform(
             ImageSource.FromFile("Images/disaster-01.png"),
@@ -95,7 +95,7 @@ namespace WeAreReady.Views
             //    Children = { image }
             //};
 
-            Content = image;
+            Content = listView;
         }
     }
 }

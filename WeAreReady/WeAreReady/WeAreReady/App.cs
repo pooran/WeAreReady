@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using WeAreReady.ViewModels;
 using WeAreReady.Views;
 using Xamarin.Forms;
 
@@ -46,5 +47,7 @@ namespace WeAreReady
 
             return mainView;
         }
+
+        public static HomeViewModel homeViewModel = new HomeViewModel();
     }
 }
