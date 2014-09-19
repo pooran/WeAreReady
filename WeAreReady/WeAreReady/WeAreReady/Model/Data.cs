@@ -41,4 +41,20 @@ namespace WeAreReady.Model
         public int In { get; set; }
         public int Out { get; set; }
     }
+
+    public class Org
+    {
+        public string OrgId { get; set; }
+        public string OrgName { get; set; }
+        public string Description { get; set; }
+        public string ContactNumbers { get; set; }
+        public string Website { get; set; }
+        public string Address { get; set; }
+    }
+
+    public class Disaster
+    {
+        public string DisasterId { get; set; }
+        public string DisasterName { get; set; }
+    }
 }

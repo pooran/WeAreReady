@@ -20,26 +20,30 @@ namespace WeAreReady
                     Spacing = 20,
                     Padding = 50,
                     VerticalOptions = LayoutOptions.Center,
-                    Children = {
-            new Entry { Placeholder = "Username" },
-            new Entry { Placeholder = "Password", IsPassword = true },
-            new Button {
-                Text = "Login",
-                TextColor = Color.Black,
-                BackgroundColor = Color.FromHex("77D065") }}
+                    Children = 
+                    {
+                        new Entry { Placeholder = "Username" },
+                        new Entry { Placeholder = "Password", IsPassword = true },
+                        new Button 
+                        {
+                            Text = "Login",
+                            TextColor = Color.Black,
+                            BackgroundColor = Color.FromHex("77D065") 
+                        }
+                    }
                 }
             };
 
             var messagePage = new ReportView
             {
-                Title = "Message"
+                Title = "Report"
             };
 
             var homeView = new HomeView();
-            
 
-            var mainView = new TabbedPage {Children = {homeView, scanPage, messagePage}};
-            
+
+            var mainView = new NavigationPage(new TabbedPage { Children = { homeView, scanPage, messagePage } });
+
             return mainView;
         }
     }
